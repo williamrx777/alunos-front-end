@@ -15,7 +15,7 @@
     document.addEventListener('DOMContentLoaded', () => {
     const alunosContainer = document.getElementById('alunos-container');
 
-    fetch('http://localhost:8080/alunos')
+    fetch('https://curso-n39o.onrender.com/alunos')
         .then(response => response.json())
         .then(data => {
             data.forEach(aluno => {
