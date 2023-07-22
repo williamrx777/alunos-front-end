@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de Alunos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Curso de Alunos</h1>
+    <div id="alunos-container">
+        <!-- Aqui serão exibidos os alunos da API -->
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const alunosContainer = document.getElementById('alunos-container');
+
+    fetch('http://localhost:8080/alunos')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(aluno => {
+                const alunoCard = document.createElement('div');
+                alunoCard.classList.add('aluno-card');
+
+                const nome = document.createElement('h3');
+                nome.textContent = aluno.nome;
+
+                const professor = document.createElement('p');
+                professor.textContent = `Professor: ${aluno.professor}`;
+
+                const turma = document.createElement('p');
+                turma.textContent = `Turma: ${aluno.turma}`;
+                
+                const linguagem = document.createElement('p');
+                linguagem.textContent = `Linguagem: ${aluno.linguagem}`;
+
+
+                alunoCard.appendChild(nome);
+                alunoCard.appendChild(professor);
+                alunoCard.appendChild(turma);
+                alunoCard.appendChild(linguagem);
+
+                alunosContainer.appendChild(alunoCard);
+            });
+        })
+        .catch(error => console.error('Erro ao obter dados da API:', error));
+});
+
+
+    </script>
+</body>
+</html>

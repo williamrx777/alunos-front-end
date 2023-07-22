@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/cadastro/cadastro.css">
+    <title>Cadastro de Alunos</title>
+</head>
+<body>
+    <h1>Cadastro de Alunos</h1>
+    <form id="aluno-form" action="/alunos" method="post">
+        <input type="text" name="nome" placeholder="Nome">
+        <input type="text" name="professor" placeholder="Professor">
+        <input type="number" name="turma" placeholder="Turma">
+        <input type="text" name="linguagem" placeholder="Linguagem">
+        <input type="submit" value="Cadastrar">
+    </form>
+    
+    <script>
+       document.getElementById('aluno-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    
+    // Converte os dados do formulário em um objeto JSON
+    const alunoData = {};
+    formData.forEach((value, key) => {
+        alunoData[key] = value;
+    });
+
+    fetch('http://localhost:8080/alunos', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json' // Configura o cabeçalho Content-Type para JSON
+        },
+        body: JSON.stringify(alunoData) // Envia os dados como JSON
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Aluno cadastrado com sucesso:', data);
+        // Aqui você pode adicionar lógica para exibir uma mensagem de sucesso ou redirecionar o usuário para outra página
+    })
+    .catch(error => {
+        console.error('Erro ao cadastrar aluno:', error);
+        // Aqui você pode adicionar lógica para exibir uma mensagem de erro ao usuário
+    });
+});
+
+    </script>
+</body>
+</html>
